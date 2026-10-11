@@ -1,2 +1,2 @@
 # Python-practice
-my work learning python
+my work learning python. Specifically, pygame module and making games.
