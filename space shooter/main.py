@@ -47,10 +47,12 @@ PLAYER_IMG = load_image("player_img.png")
 ENEMY_IMG = load_image("enemy_img.png")
 PLAYER_BULLET_IMG = load_image("player_bullet.png")
 HEALTH_IMG = load_image("health_img.png")
+LOGO_IMG = load_image("logo.png")
 
 pygame.init()
 screen = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 pygame.display.set_caption("space shooter")
+pygame.display.set_icon(LOGO_IMG)
 clock = pygame.time.Clock()
 
 font = pygame.font.SysFont(None, 15)
