@@ -74,7 +74,7 @@ class Player(pygame.Rect):
         self.direction = 'right'
         self.shooting = False
         self.bullets = []
-        self.max_health = 1
+        self.max_health = 10
         self.health = self.max_health
         self.invinsible = False
 
