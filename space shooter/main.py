@@ -135,17 +135,24 @@ class Player(pygame.Rect):
 
         # BULLET
         global SCORE
-        for bullet in player.bullets:
+
+        for bullet in player.bullets[:]:
             bullet.y += bullet.VELOCITY_Y
 
-            if enemy.colliderect(bullet):
-                ENEMYS.remove(enemy)
-                player.bullets.remove(bullet)
-                SCORE += 500
+            for enemy in ENEMYS[:]:
+                if enemy.colliderect(bullet):
+                    ENEMYS.remove(enemy)
 
-        player.bullets = [bullet for bullet in player.bullets \
-                          if bullet.y > 0 \
-                          and bullet.y + bullet.height < GAME_HEIGHT]
+                    if bullet in player.bullets:
+                        player.bullets.remove(bullet)
+
+                    SCORE += 500
+                    break
+
+        player.bullets = [
+            bullet for bullet in player.bullets
+            if bullet.y + bullet.height > 0
+        ]
 
 class Enemy(pygame.Rect):
     def __init__(self, X, Y):
@@ -219,13 +226,21 @@ while running:
         next_spawn = random.randint(30, 120)
 
 
-    for enemy in ENEMYS:
+    for enemy in ENEMYS[:]:
         enemy.VELOCITY_Y += -ENEMY_VELOCITY_Y
         enemy.y += enemy.VELOCITY_Y
 
         if not player.invinsible and player.colliderect(enemy):
             player.health -= 1
             player.set_invinsible()
+
+            if enemy in ENEMYS:
+                ENEMYS.remove(enemy)
+
+    ENEMYS = [
+        enemy for enemy in ENEMYS
+        if enemy.y <= GAME_HEIGHT
+    ]
 
 
             
